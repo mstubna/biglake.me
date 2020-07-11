@@ -1,0 +1,12 @@
+@font-face {
+  font-family: Eclat;
+  src: url('./fonts/EclatMedium.woff') format('woff2'),
+    url('./fonts/EclatMedium.woff') format('woff');
+  font-style: normal;
+  font-weight: normal;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
