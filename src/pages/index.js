@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
 import 'typeface-montserrat'
 import React, { useState, useEffect, useRef } from 'react'
 import { Helmet } from 'react-helmet'
@@ -30,7 +29,7 @@ const {
 } = require('react-leaflet')
 
 const hFonts = {
-  fontFamily: "'Eclat', 'Helvetica', 'Arial', sans-serif",
+  fontFamily: "'Eclat', 'Times New Roman', Times, serif",
 }
 let theme = createMuiTheme({
   typography: {
@@ -121,7 +120,6 @@ const useStyles = makeStyles({
   },
   map: {
     height: 400,
-    // width: 600,
     width: '100%',
     borderWidth: 2,
     borderStyle: 'solid',
@@ -132,21 +130,21 @@ const useStyles = makeStyles({
     marginBottom: 20,
   },
   backButton: {
-    padding: '4px 4px',
+    padding: 4,
     marginLeft: 14,
     marginRight: 14,
     marginBottom: 8,
     width: 120,
   },
   nextButton: {
-    padding: '4px 4px',
+    padding: 4,
     marginLeft: 14,
     marginRight: 14,
     marginBottom: 8,
     width: 180,
   },
   linkGroup: {
-    marginTop: '30px',
+    marginTop: 60,
   },
   linkFont: {
     fontSize: 10,
@@ -469,6 +467,52 @@ const IndexPage = () => {
           >
             {step === 2 ? 'Start over' : 'Next'}
           </Button>
+        </Grid>
+        <Grid
+          className={classes.linkGroup}
+          item
+          xs={10}
+          container
+          direction='row'
+          justify='flex-end'
+        >
+          <Typography
+            className={classes.linkFont}
+            variant='body1'
+            color='primary'
+            align='right'
+          >
+            <span>
+              Questions? Watch the{' '}
+              <a
+                className={classes.link}
+                href='https://twitter.com/GLucasTalkShow'
+              >
+                George Lucas Talk Show
+              </a>
+            </span>
+            <br />
+            <span>
+              <a className={classes.link} href='https://1600penn.me'>
+                1600Penn.me
+              </a>
+            </span>
+            <br />
+            <span>
+              <a className={classes.link} href='https://arliss.me'>
+                Arliss.me
+              </a>
+            </span>
+            <br />
+            <span>
+              <a
+                className={classes.link}
+                href='https://github.com/mstubna/biglake.me'
+              >
+                Source
+              </a>
+            </span>
+          </Typography>
         </Grid>
       </div>
     </ThemeProvider>
