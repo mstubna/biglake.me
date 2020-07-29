@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet'
 import {
   Button,
   CircularProgress,
+  CssBaseline,
   Grid,
   Slide,
   TextField,
@@ -45,14 +46,30 @@ let theme = createMuiTheme({
     subtitle1: hFonts,
   },
   palette: {
-    primary: { main: '#3566ab' },
-    secondary: { main: '#616161' },
-    text: { primary: '#424242' },
+    background: { default: '#3566ab' },
+    primary: { main: '#fbc02d' },
+    secondary: { main: '#fff' },
+    text: {
+      primary: '#fff',
+      secondary: '#fff',
+    },
+    action: {
+      disabledBackground: '#fbc02dd1',
+    },
   },
   shape: {
     borderRadius: 30,
   },
   shadows: ['none'],
+  overrides: {
+    MuiOutlinedInput: {
+      root: {
+        '& $notchedOutline': {
+          borderColor: '#fff',
+        },
+      },
+    },
+  },
 })
 
 theme = responsiveFontSizes(theme)
@@ -63,9 +80,7 @@ const useStyles = makeStyles({
   },
   titleContainer: {},
   title: {
-    padding: '14px 30px 14px 20px',
-    borderRadius: 50,
-    background: theme.palette.primary.main,
+    marginBottom: -10,
   },
   titleFont: {
     fontWeight: 400,
@@ -78,7 +93,7 @@ const useStyles = makeStyles({
     marginTop: 10,
   },
   subtitleFont: {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.primary,
   },
   inputContainer: {},
   inputLabel: {
@@ -121,9 +136,6 @@ const useStyles = makeStyles({
   map: {
     height: 400,
     width: '100%',
-    borderWidth: 2,
-    borderStyle: 'solid',
-    borderColor: theme.palette.primary.main,
   },
   buttonGroup: {
     marginTop: 20,
@@ -154,7 +166,7 @@ const useStyles = makeStyles({
   },
   link: {
     textDecoration: 'underline',
-    color: theme.palette.primary.main,
+    color: theme.palette.text.secondary,
   },
 })
 
@@ -269,6 +281,7 @@ const IndexPage = () => {
         <meta name='twitter:image' content={icon3} />
         <meta name='twitter:card' content={icon3} />
       </Helmet>
+      <CssBaseline />
       <div style={{ overflow: 'hidden' }}>
         <Grid
           className={classes.headerContainer}
@@ -395,11 +408,7 @@ const IndexPage = () => {
                 Your Big Lake name is
               </Typography>
               <div className={classes.nameContainer}>
-                <Typography
-                  className={classes.nameFont}
-                  variant='h2'
-                  color='primary'
-                >
+                <Typography className={classes.nameFont} variant='h2'>
                   {bigLakeName}
                 </Typography>
               </div>
@@ -413,7 +422,7 @@ const IndexPage = () => {
                 </Typography>
               )}
               <div className={classes.mapContainer}>
-                {loading && <CircularProgress color='primary' />}
+                {loading && <CircularProgress color='secondary' />}
                 {geo && !loading && (
                   <div className={classes.map}>
                     <LeafletMap
@@ -423,7 +432,7 @@ const IndexPage = () => {
                       <GeoJSON
                         data={geo}
                         style={() => ({
-                          color: theme.palette.primary.main,
+                          color: theme.palette.background.default,
                           weight: 6,
                           fillOpacity: 0,
                         })}
@@ -452,7 +461,7 @@ const IndexPage = () => {
           <Button
             className={classes.backButton}
             disabled={step === 0}
-            color='secondary'
+            color='primary'
             variant='contained'
             onClick={handleBack}
           >
@@ -479,7 +488,6 @@ const IndexPage = () => {
           <Typography
             className={classes.linkFont}
             variant='body1'
-            color='primary'
             align='right'
           >
             <span>
