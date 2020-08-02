@@ -47,14 +47,14 @@ let theme = createMuiTheme({
   },
   palette: {
     background: { default: '#3566ab' },
-    primary: { main: '#fbc02d' },
+    primary: { main: '#bbdefb' },
     secondary: { main: '#fff' },
     text: {
       primary: '#fff',
-      secondary: '#fff',
+      secondary: '#bbdefb',
     },
     action: {
-      disabledBackground: '#fbc02dd1',
+      disabledBackground: '#bbdefbcd',
     },
   },
   shape: {
@@ -87,14 +87,12 @@ const useStyles = makeStyles({
   },
   titleFontLink: {
     textDecoration: 'none',
-    color: 'white',
+    color: theme.palette.text.primary,
   },
   subtitleContainer: {
     marginTop: 10,
   },
-  subtitleFont: {
-    color: theme.palette.text.primary,
-  },
+  subtitleFont: {},
   inputContainer: {},
   inputLabel: {
     textAlign: 'center',
@@ -309,7 +307,11 @@ const IndexPage = () => {
             </Grid>
           </Grid>
           <Grid className={classes.subtitleContainer}>
-            <Typography className={classes.subtitleFont} variant='body1'>
+            <Typography
+              className={classes.subtitleFont}
+              variant='body1'
+              color='textSecondary'
+            >
               Big Lake-ify me!
             </Typography>
           </Grid>
@@ -488,6 +490,7 @@ const IndexPage = () => {
           <Typography
             className={classes.linkFont}
             variant='body1'
+            color='textSecondary'
             align='right'
           >
             <span>
