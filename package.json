@@ -1,5 +1,5 @@
 {
-  "name": "1600penn.me",
+  "name": "biglake.me",
   "private": true,
   "version": "0.0.0",
   "dependencies": {
@@ -39,6 +39,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mstubna/1600penn.me"
+    "url": "https://github.com/mstubna/biglake.me"
   }
 }
