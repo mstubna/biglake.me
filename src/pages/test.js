@@ -74,6 +74,12 @@ let theme = createMuiTheme({
       root: {
         '& $notchedOutline': {
           borderColor: '#212121',
+          borderWidth: 3,
+        },
+        '& $input': {
+          background: '#ffee58',
+          borderRadius: 30,
+          fontWeight: 'bold',
         },
       },
     },
@@ -122,32 +128,22 @@ const useStyles = makeStyles({
     paddingTop: 40,
     paddingBottom: 40,
   },
-  nameContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  mapParentContainer: {
+  mapParent: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: -30,
+    marginBottom: 10,
   },
-  mapContainer: {
-    marginTop: 20,
-    marginBottom: 20,
-    borderColor: 'white',
-    borderWidth: 30,
-    borderStyle: 'solid',
-    borderBottomWidth: 190,
-    boxShadow: '1px 8px 11px #000000d9',
+  mapAndNameContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: 30,
+    background: 'white',
     width: '100%',
-    maxWidth: 650,
+    maxWidth: 625,
     height: 750,
-  },
-  mapLabel: {
-    textAlign: 'center',
-    marginTop: 20,
   },
   map: {
     height: '100%',
@@ -157,6 +153,8 @@ const useStyles = makeStyles({
     textAlign: 'center',
     lineHeight: 0.9,
     marginTop: 20,
+    wordBreak: 'break-word',
+    hyphens: 'auto',
   },
   buttonGroup: {
     marginTop: 20,
@@ -441,11 +439,11 @@ const IndexPage = () => {
               </Typography>
             </Grid>
           </Slide>
-          <Grid className={classes.mapParentContainer} item xs={10}>
+          <Grid className={classes.mapParent} item xs={10}>
             {step === 2 && loading && <CircularProgress color='primary' />}
             {step === 2 && geo && !loading && (
               <>
-                <div className={classes.mapContainer}>
+                <div className={classes.mapAndNameContainer}>
                   <div className={classes.map}>
                     <LeafletMap
                       bounds={getGeoProps().bounds}
