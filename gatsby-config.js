@@ -24,6 +24,8 @@ module.exports = {
       resolve: `gatsby-plugin-s3`,
       options: {
         bucketName: 'biglake.me',
+        protocol: 'https',
+        hostname: 'biglake.me',
       },
     },
     {
@@ -35,7 +37,7 @@ module.exports = {
         background_color: `#3566ab`,
         theme_color: `#3566ab`,
         display: `minimal-ui`,
-        icon: `src/images/icon3.png`,
+        icon: `src/images/icon.png`,
       },
     },
   ],
