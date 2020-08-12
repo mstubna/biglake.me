@@ -150,12 +150,10 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     padding: 30,
     background: 'white',
-    width: '100%',
     maxWidth: 625,
-    height: 750,
   },
   map: {
-    height: '100%',
+    height: 558,
     width: '100%',
   },
   mapName: {
@@ -174,14 +172,24 @@ const useStyles = makeStyles({
     marginLeft: 14,
     marginRight: 14,
     marginBottom: 8,
-    minWidth: 180,
+    paddingLeft: 10,
+    paddingRight: 10,
+    minWidth: 100,
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 180,
+    },
   },
   nextButton: {
     padding: 4,
     marginLeft: 14,
     marginRight: 14,
     marginBottom: 8,
-    minWidth: 180,
+    paddingLeft: 10,
+    paddingRight: 10,
+    minWidth: 100,
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 180,
+    },
   },
   shareButton: {
     marginLeft: 4,
@@ -189,6 +197,7 @@ const useStyles = makeStyles({
   },
   linkGroup: {
     marginTop: 60,
+    marginBottom: 30,
   },
   linkFont: {
     fontSize: 10,
