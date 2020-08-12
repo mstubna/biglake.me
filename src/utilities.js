@@ -28,7 +28,7 @@ const ignored = [
 ]
 const ignoredRegex = new RegExp(ignored.join('|'), 'ig')
 const keywords = waterBodies
-  .map((r) => r.name.toLowerCase())
+  .map((wb) => wb.name.toLowerCase())
   .map((r) => {
     return r
       .split(/\s+/)

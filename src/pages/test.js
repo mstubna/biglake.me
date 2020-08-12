@@ -18,11 +18,18 @@ import {
   duration,
 } from '@material-ui/core/styles'
 import capitalize from 'lodash/capitalize'
+import { useQueryParam, StringParam } from 'use-query-params'
 import { findBestMatchForName, getGeo } from '../utilities'
 import pin from '../images/pin.png'
-import icon from '../images/icon.png'
+import twitterImage from '../images/twitter.png'
 import '../index.css'
 import '../../node_modules/leaflet/dist/leaflet.css'
+import {
+  EmailIcon,
+  EmailShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from 'react-share'
 import leaflet from 'leaflet/dist/leaflet'
 const {
   Map: LeafletMap,
@@ -104,9 +111,11 @@ const useStyles = makeStyles({
     color: theme.palette.text.primary,
   },
   subtitleContainer: {
-    marginTop: 10,
+    marginTop: 4,
   },
-  subtitleFont: {},
+  subtitleFont: {
+    fontWeight: 'bold',
+  },
   inputContainer: {},
   inputLabel: {
     textAlign: 'center',
@@ -165,14 +174,18 @@ const useStyles = makeStyles({
     marginLeft: 14,
     marginRight: 14,
     marginBottom: 8,
-    width: 120,
+    minWidth: 180,
   },
   nextButton: {
     padding: 4,
     marginLeft: 14,
     marginRight: 14,
     marginBottom: 8,
-    width: 180,
+    minWidth: 180,
+  },
+  shareButton: {
+    marginLeft: 4,
+    marginRight: 4,
   },
   linkGroup: {
     marginTop: 60,
@@ -199,6 +212,11 @@ const usePrevious = (value) => {
 }
 
 const IndexPage = () => {
+  const [queryName, setQueryName] = useQueryParam('name', StringParam)
+  const [queryDescriptor, setQueryDescriptor] = useQueryParam(
+    'descriptor',
+    StringParam
+  )
   const classes = useStyles()
   const [step, setStep] = useState(0)
   const prevStep = usePrevious(step)
@@ -225,7 +243,8 @@ const IndexPage = () => {
 
   const handleNext = async () => {
     if (step === 1) {
-      handleBigLakeify(name)
+      setQueryName(name)
+      setQueryDescriptor(descriptor)
     }
     if (step === 2) {
       return handleReset()
@@ -238,20 +257,10 @@ const IndexPage = () => {
     setName('')
     setDescriptor('')
     setBigLakeName('')
+    setQueryName(undefined)
+    setQueryDescriptor(undefined)
     setGeo(null)
     setLoading(false)
-  }
-
-  const handleBigLakeify = (name) => {
-    setLoading(true)
-    const match = findBestMatchForName(name)
-    const names = []
-    if (descriptor) {
-      names.push(capitalize(descriptor))
-    }
-    names.push(match.name)
-    setBigLakeName(names.join(' '))
-    loadGeo(match.id)
   }
 
   const loadGeo = async (id) => {
@@ -293,18 +302,49 @@ const IndexPage = () => {
     }
   }
 
+  useEffect(() => {
+    const handleBigLakeify = (name, descriptor) => {
+      setLoading(true)
+      const match = findBestMatchForName(name)
+      const names = []
+      if (descriptor) {
+        names.push(capitalize(descriptor))
+      }
+      names.push(match.name)
+      setBigLakeName(names.join(' '))
+      loadGeo(match.id)
+    }
+
+    console.log('here', queryName, queryDescriptor)
+    if (!queryName || !queryDescriptor) {
+      return
+    }
+    setName(queryName)
+    setDescriptor(queryDescriptor)
+    setStep(2)
+    handleBigLakeify(queryName, queryDescriptor)
+  }, [queryName, queryDescriptor])
+
+  const url = typeof window !== 'undefined' ? window.location.href : ''
+
   return (
     <ThemeProvider theme={theme}>
       <Helmet>
         <title>BigLake.me</title>
         <meta property='og:title' content='BigLake.me' />
         <meta property='og:description' content='Big Lake name generator' />
-        <meta property='og:image' content={icon} />
+        <meta
+          property='og:image'
+          content={`https://biglake.me${twitterImage}`}
+        />
         <meta property='og:url' content='https://biglake.me' />
         <meta name='twitter:title' content='BigLake.me' />
         <meta name='twitter:description' content='Big Lake name generator' />
-        <meta name='twitter:image' content={icon} />
-        <meta name='twitter:card' content={icon} />
+        <meta
+          name='twitter:image'
+          content={`https://biglake.me${twitterImage}`}
+        />
+        <meta name='twitter:card' content='summary' />
       </Helmet>
       <CssBaseline />
       <div style={{ overflow: 'hidden' }}>
@@ -371,7 +411,7 @@ const IndexPage = () => {
             >
               <Typography
                 className={classes.inputLabel}
-                variant='body2'
+                variant='body1'
                 color='textSecondary'
               >
                 What's your name?
@@ -405,7 +445,7 @@ const IndexPage = () => {
             >
               <Typography
                 className={classes.inputLabel}
-                variant='body2'
+                variant='body1'
                 color='textSecondary'
               >
                 Describe yourself in one word
@@ -432,7 +472,7 @@ const IndexPage = () => {
             <Grid className={classes.inputContainer} item xs={10}>
               <Typography
                 className={classes.inputLabel}
-                variant='body2'
+                variant='body1'
                 color='textSecondary'
               >
                 Your Big Lake name is
@@ -496,7 +536,7 @@ const IndexPage = () => {
           </Button>
           <Button
             className={classes.nextButton}
-            disabled={!name}
+            disabled={(step === 0 && !name) || (step === 1 && !descriptor)}
             color='primary'
             variant='contained'
             onClick={handleNext}
@@ -504,6 +544,31 @@ const IndexPage = () => {
             {step === 2 ? 'Start over' : 'Next'}
           </Button>
         </Grid>
+        {step === 2 && (
+          <Grid
+            item
+            container
+            direction='row'
+            justify='center'
+            alignItems='center'
+            xs={12}
+          >
+            <TwitterShareButton
+              className={classes.shareButton}
+              url={url}
+              title={'Check out my Lake on BigLake.me!'}
+            >
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+            <EmailShareButton
+              className={classes.shareButton}
+              url={url}
+              subject={'Check out my Lake on BigLake.me!'}
+            >
+              <EmailIcon size={32} round />
+            </EmailShareButton>
+          </Grid>
+        )}
         <Grid
           className={classes.linkGroup}
           item
