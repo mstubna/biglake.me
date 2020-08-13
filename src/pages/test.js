@@ -151,7 +151,7 @@ const useStyles = makeStyles({
     padding: 30,
     background: 'white',
     maxWidth: 625,
-    boxShadow: '2px 10px 8px #000000b3'
+    boxShadow: '2px 10px 8px #000000b3',
   },
   map: {
     height: 558,
