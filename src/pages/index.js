@@ -325,7 +325,6 @@ const IndexPage = () => {
       loadGeo(match.id)
     }
 
-    console.log('here', queryName, queryDescriptor)
     if (!queryName || !queryDescriptor) {
       return
     }
