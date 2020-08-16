@@ -11,5 +11,5 @@ See <https://biglake.me>
 - `npm run develop` -- Run dev server; browse to <http://localhost:8000>
 - `npm run build` -- Creates a production build
 - `npm run serve` -- Serves the production build locally; browse to <http://localhost:9000>
-- `npm run format` -- Runs the code linter
+- `npm run lint` -- Runs the code linter
 - `npm run build-deploy` -- Clean, build, and deploy to s3 bucket
